@@ -1,6 +1,6 @@
 version: '3'
 services:
-  nginx:
+  is-nginx:
     image: nginx:latest
     container_name: is-nginx
     restart: unless-stopped
@@ -15,35 +15,41 @@ services:
       - $PWD/nginx/ssl/:/etc/nginx/ssl/
 # BITSKRAFT IDENTITY CONTAINERS
 # IDENTITY STS
-  identity-sts:
-    image: "sneraz/identitysts:latest"
-    container_name: is-sts
+  is-sts:
+    image: "${STS_IMAGE_REPO}"
+    container_name: "${CONTAINER_STS_NAME}"
     restart: unless-stopped
     expose:
       - "9091"  
     ports:
      - "9091:443"
+    volumes:
+      - ${PWD}/config/sts/appsettings.json:/app/appsettings.json
     env_file:
-     - ./Identity-sts.env
+     - ./is.env
 # IDENTITY ADMIN
-  identity-admin:
-    image: "sneraz/identityadmin:latest"
-    container_name: is-admin
+  is-admin:
+    image: "${ADMIN_IMAGE_REPO}"
+    container_name: "${CONTAINER_ADMIN_NAME}"
     restart: unless-stopped
     expose:
       - "9092"
     ports:
      - "9092:443"
+    volumes:
+      - ${PWD}/config/admin/appsettings.json:/app/appsettings.json
     env_file:
-     - ./Identity-admin.env
+     - ./is.env
 # IDENTITY API
-  identity-api:
-    image: "sneraz/identityapi:latest"
-    container_name: is-api
+  is-api:
+    image: "${API_IMAGE_REPO}"
+    container_name: "${CONTAINER_API_NAME}"
     restart: unless-stopped
     expose:
       - "9093"
     ports:
      - "9093:443"
+    volumes:
+      - ${PWD}/config/api/appsettings.json:/app/appsettings.json
     env_file:
-     - ./Identity-api.env
+     - ./is.env
