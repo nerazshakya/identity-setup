@@ -1,4 +1,4 @@
-#!/bin/sh/env bash
+#!/bin/sh
 grep -v '^#' .env
 export $(grep -v '^#' .env | xargs)
 adminconfig='{
