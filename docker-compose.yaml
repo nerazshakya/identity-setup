@@ -26,7 +26,7 @@ services:
     volumes:
       - ${PWD}/config/sts/appsettings.json:/app/appsettings.json
     env_file:
-     - ./is.env
+     - ./.env
 # IDENTITY ADMIN
   is-admin:
     image: "${ADMIN_IMAGE_REPO}"
@@ -39,7 +39,7 @@ services:
     volumes:
       - ${PWD}/config/admin/appsettings.json:/app/appsettings.json
     env_file:
-     - ./is.env
+     - ./.env
 # IDENTITY API
   is-api:
     image: "${API_IMAGE_REPO}"
@@ -52,4 +52,4 @@ services:
     volumes:
       - ${PWD}/config/api/appsettings.json:/app/appsettings.json
     env_file:
-     - ./is.env
+     - ./.env
